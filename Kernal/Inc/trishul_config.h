@@ -1,0 +1,7 @@
+#ifndef TRISHUL_CONFIG_H
+#define TRISHUL_CONFIG_H
+
+#define TRISHUL_MAX_TASKS 8U
+#define TRISHUL_TICK_HZ 1000U
+
+#endif
