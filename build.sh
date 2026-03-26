@@ -6,6 +6,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="${BUILD_DIR:-${ROOT_DIR}/build}"
 LOG_DIR="${LOG_DIR:-${ROOT_DIR}/logs}"
 TOOLCHAIN_FILE="${TOOLCHAIN_FILE:-cmake/arm-none-eabi-gcc.cmake}"
+CMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE:-Release}"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 CONFIGURE_LOG="${LOG_DIR}/configure_${TIMESTAMP}.log"
 BUILD_LOG="${LOG_DIR}/build_${TIMESTAMP}.log"
@@ -14,10 +15,11 @@ mkdir -p "${BUILD_DIR}" "${LOG_DIR}"
 
 echo "Using build directory: ${BUILD_DIR}"
 echo "Using log directory: ${LOG_DIR}"
+echo "Using build type: ${CMAKE_BUILD_TYPE}"
 echo "Configure log: ${CONFIGURE_LOG}"
 echo "Build log: ${BUILD_LOG}"
 
-cmake -S "${ROOT_DIR}" -B "${BUILD_DIR}" -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" "$@" 2>&1 | tee "${CONFIGURE_LOG}"
+cmake -S "${ROOT_DIR}" -B "${BUILD_DIR}" -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" "$@" 2>&1 | tee "${CONFIGURE_LOG}"
 configure_status=${PIPESTATUS[0]}
 if [ "${configure_status}" -ne 0 ]; then
     echo "Configure failed. See ${CONFIGURE_LOG}"

@@ -10,6 +10,8 @@ option(TRISHUL_BUILD_STM32F401_EXAMPLE "Build the STM32F401 blinky firmware targ
 
 add_library(trishul_kernel STATIC
     Kernal/Src/trishul.c
+    Kernal/Src/trishul_uart.c
+    Drivers/STM32F401RE/Src/trishul_uart_stm32f401re.c
     Port/ARM_Cortex_M4/port.c
     Port/ARM_Cortex_M4/portasm.s
 )
@@ -17,6 +19,7 @@ add_library(trishul_kernel STATIC
 target_include_directories(trishul_kernel
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/Kernal/Inc
+        ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F401RE/Inc
         ${CMAKE_CURRENT_SOURCE_DIR}/Port/ARM_Cortex_M4
 )
 
